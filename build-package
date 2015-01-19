@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# build-package: build an RPM package from our OpenStack fork.
+#
+# The logic is reasonably simple: update the repository copy that we build
+# from, create an sdist tarball, extract the version number from the
+# *.egg-info/PKG-INFO file and put it in the environment, copy the tarball into
+# the appropriate place, then run rpmbuild.
+
+set -x
+
+top="/home/vagrant/packaging"
+package="$1"
+source="$top/$package"
+
+SOURCES="/home/vagrant/rpmbuild/SOURCES"
+SPECS="$top/packaging"
+
+pwd
+pushd $source
+
+# error checking that needs to be done: make sure that git runs cleanly; make
+# sure the version number is set properly, make sure that the package builds
+# properly
+git pull
+
+rm -rf dist *.egg-info
+
+if [ -f "./setup.py" ] ; then
+	python ./setup.py sdist --formats=gztar &>/dev/null
+
+	version=`cat $source/$package.egg-info/PKG-INFO |grep '^Version:' |cut -d \  -f 2`
+	
+	cp ./dist/package-$version.tar.gz $SOURCES
+
+	pushd $SPECS
+
+	if [ -f "./openstack-$package.spec" ]; then
+		rpmbuild -bb ./openstack-$package.spec
+	fi
+fi

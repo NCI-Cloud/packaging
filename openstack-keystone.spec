@@ -4,9 +4,10 @@
 %global release_name icehouse
 
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
+%global _version %{getenv:version}
 
 Name:           openstack-keystone
-Version:        2014.1.2.1
+Version:        %{_version}
 Release:        1%{?dist}
 Summary:        OpenStack Identity Service
 
