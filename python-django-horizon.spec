@@ -150,13 +150,6 @@ BuildRequires: python-oslo-sphinx
 %description doc
 Documentation for the Django Horizon application for talking with Openstack
 
-%package -n openstack-dashboard-theme
-Summary: OpenStack web user interface reference implementation theme module
-Requires: openstack-dashboard = %{version}
-
-%description -n openstack-dashboard-theme
-Customization module for OpenStack Dashboard to provide a branded logo.
-
 %prep
 %setup -q -n horizon-%{version}
 # Use git to manage patches.
@@ -244,8 +237,8 @@ cp manage.py %{buildroot}%{_datadir}/openstack-dashboard
 rm -rf %{buildroot}%{python_sitelib}/openstack_dashboard
 
 # move customization stuff to /usr/share
-mv openstack_dashboard/dashboards/theme %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/dashboards/
-mv openstack_dashboard/enabled/_99_customization.py %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/enabled
+#mv openstack_dashboard/dashboards/theme %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/dashboards/
+#mv openstack_dashboard/enabled/_99_customization.py %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/enabled
 
 
 # Move config to /etc, symlink it back to /usr/share
@@ -329,7 +322,6 @@ sed -i 's:^SECRET_KEY =.*:SECRET_KEY = "badcafe":' openstack_dashboard/local/loc
 %{_datadir}/openstack-dashboard/openstack_dashboard/dashboards/settings
 %{_datadir}/openstack-dashboard/openstack_dashboard/dashboards/__init__.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/enabled
-%exclude %{_datadir}/openstack-dashboard/openstack_dashboard/enabled/_99_customization.*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local
 %{_datadir}/openstack-dashboard/openstack_dashboard/openstack
 %{_datadir}/openstack-dashboard/openstack_dashboard/static
@@ -357,10 +349,6 @@ sed -i 's:^SECRET_KEY =.*:SECRET_KEY = "badcafe":' openstack_dashboard/local/loc
 
 %files doc
 %doc html
-
-%files -n openstack-dashboard-theme
-%{_datadir}/openstack-dashboard/openstack_dashboard/dashboards/theme
-%{_datadir}/openstack-dashboard/openstack_dashboard/enabled/_99_customization.*
 
 %changelog
 * Fri Jan 16 2015 Simon Fowler <simon.fowler@anu.edu.au> 2014.1.3-2

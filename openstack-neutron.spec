@@ -4,7 +4,7 @@
 
 Name:		openstack-neutron
 Version:	%{_version}
-Release:	5%{?dist}
+Release:	1%{?dist}
 Provides:	openstack-quantum = %{version}-%{release}
 Obsoletes:	openstack-quantum < 2013.2-0.4.b3
 Summary:	OpenStack Networking Service

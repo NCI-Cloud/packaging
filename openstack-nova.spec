@@ -4,7 +4,7 @@
 
 Name:             openstack-nova
 Version:          %{_version}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
