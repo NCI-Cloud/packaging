@@ -10,7 +10,7 @@
 set -x
 
 top="/home/vagrant/packaging"
-package="$1"
+package=`echo $1 |sed -e 's/\///'`
 source="$top/$package"
 
 SOURCES="/home/vagrant/rpmbuild/SOURCES"
@@ -30,8 +30,11 @@ if [ -f "./setup.py" ] ; then
 	python ./setup.py sdist --formats=gztar &>/dev/null
 
 	version=`cat $source/$package.egg-info/PKG-INFO |grep '^Version:' |cut -d \  -f 2`
+	export version
 	
-	cp ./dist/package-$version.tar.gz $SOURCES
+	mkdir -p $SOURCES
+	cp ./dist/$package-$version.tar.gz $SOURCES
+	cp $SPECS/extra-files/$package/* $SOURCES
 
 	pushd $SPECS
 

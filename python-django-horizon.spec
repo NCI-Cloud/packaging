@@ -1,6 +1,10 @@
-%global with_compression 1
+%global with_compression 0
+%global with_doc 0
+%global with_trans 0
+%global _version %{getenv:version}
+
 Name:       python-django-horizon
-Version:    2014.1.3
+Version:    %{_version}
 Release:    1%{?dist}
 Summary:    Django application for talking to Openstack
 

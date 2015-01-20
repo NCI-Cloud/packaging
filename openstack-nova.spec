@@ -1,8 +1,9 @@
-%global with_doc %{!?_without_doc:1}%{?_without_doc:0}
-%global with_trans %{!?_without_trans:1}%{?_without_trans:0}
+%global with_doc 0
+%global with_trans 0
+%global _version %{getenv:version}
 
 Name:             openstack-nova
-Version:          2014.1.3
+Version:          %{_version}
 Release:          3%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -509,7 +510,7 @@ rm -fr build/html/.doctrees build/html/.buildinfo
 # Create dir link to avoid a sphinx-build exception
 mkdir -p build/man/.doctrees/
 ln -s .  build/man/.doctrees/man
-SPHINX_DEBUG=1 sphinx-build -b man -c source source/man build/man
+SPHINX_DEBUG=1 sphinx-build -b man -c source -D html_last_updated_fmt='%{_version}' -D git_cmd="/bin/true" source/man build/man
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -D -m 644 build/man/*.1 %{buildroot}%{_mandir}/man1/
 

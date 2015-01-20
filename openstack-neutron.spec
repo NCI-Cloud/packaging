@@ -1,7 +1,9 @@
 %global release_name icehouse
+%global with_doc 0
+%global _version %{getenv:version}
 
 Name:		openstack-neutron
-Version:	2014.1.3
+Version:	%{_version}
 Release:	5%{?dist}
 Provides:	openstack-quantum = %{version}-%{release}
 Obsoletes:	openstack-quantum < 2013.2-0.4.b3

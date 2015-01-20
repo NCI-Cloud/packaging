@@ -3,7 +3,7 @@
 #
 %global release_name icehouse
 
-%global with_doc %{!?_without_doc:1}%{?_without_doc:0}
+%global with_doc 0
 %global _version %{getenv:version}
 
 Name:           openstack-keystone
@@ -34,7 +34,7 @@ Source23:       openstack-keystone.upstart
 BuildArch:      noarch
 
 BuildRequires:  python2-devel
-BuildRequires:  python-sphinx >= 1.1.2
+BuildRequires:  python-sphinx10 >= 1.0  
 BuildRequires:  python-oslo-sphinx
 BuildRequires:  python-pbr
 BuildRequires:  python-d2to1
