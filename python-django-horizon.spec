@@ -1,4 +1,4 @@
-%global with_compression 0
+%global with_compression 1
 %global with_doc 0
 %global with_trans 0
 %global _version %{getenv:version}
@@ -180,10 +180,10 @@ cp -p %{SOURCE4} .
 
 %if 0%{?with_compression} > 0
 # set COMPRESS_OFFLINE=True
-sed -i 's:COMPRESS_OFFLINE = False:COMPRESS_OFFLINE = True:' openstack_dashboard/settings.py
+sed -i 's:COMPRESS_OFFLINE = .*$:COMPRESS_OFFLINE = True:g' openstack_dashboard/settings.py
 %else
 # set COMPRESS_OFFLINE=False
-sed -i 's:COMPRESS_OFFLINE = True:COMPRESS_OFFLINE = False:' openstack_dashboard/settings.py
+sed -i 's:COMPRESS_OFFLINE = .*$:COMPRESS_OFFLINE = False:g' openstack_dashboard/settings.py
 %endif
 
 
