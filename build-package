@@ -9,11 +9,12 @@
 
 set -x
 
-top="/home/vagrant/packaging"
+top="/home/centos/nci-cloud/"
 package=`echo $1 |sed -e 's/\///'`
 source="$top/$package"
 
-SOURCES="/home/vagrant/rpmbuild/SOURCES"
+SOURCES="/home/centos/rpmbuild/SOURCES"
+RPMS="/home/centos/rpmbuild/RPMS"
 SPECS="$top/packaging"
 
 pwd
@@ -40,5 +41,8 @@ if [ -f "./setup.py" ] ; then
 
 	if [ -f "./openstack-$package.spec" ]; then
 		rpmbuild -bb ./openstack-$package.spec
+		pushd $RPMs/noarch
+		createrepo .
+		popd
 	fi
 fi
